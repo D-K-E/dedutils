@@ -3,11 +3,12 @@ import json  # parseFile
 from os import joinPath, CurDir, existsFile
 from system import newException, OSError, ValueError
 import strutils  # string contains
+import utils
 
 proc getTermList*(lstname: string): JsonNode =
     ## get term list from lstname assuming we are at project base directory
-    var tdir = joinPath($(CurDir), "data")
-    tdir = joinPath(tdir, "term-list")
+    
+    var tdir = utils.getTermListDir()
     let tpath = joinPath(tdir, lstname & ".json")
     if existsFile(tpath) == false:
         raise newException(OSError, 

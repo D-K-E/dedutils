@@ -5,6 +5,19 @@ import strutils  # split
 import json  # pretty
 import streams  # write file
 import os
+import utils
+
+## Term List Structure
+## --------------------
+##
+## A term list has the following structure
+##
+## .. code-block:: json
+##
+##     [{"id": "term-list-name-0", "value": string, 
+##       "contain/optional": ["term-id"]}
+##     ]
+##
 
 echo "Welcome to term interface!"
 let tname = readLineFromStdin(
@@ -33,9 +46,7 @@ if choice == "add":
         let contained = readLineFromStdin(
         "Now enter id values of other terms separated by ; as in above: ")
         nlst = addTerm2List(tlst, term, tname, contained.split(";"))
-    var tdir = joinPath($(CurDir), "data")
-    tdir = joinPath(tdir, "term-list")
-    let tpath = joinPath(tdir, tname & ".json")
+    let tpath = joinPath(getTermListDir(), tname & ".json")
     var strm = newFileStream(tpath, fmWrite)
     if not isNil(strm):
         strm.write(pretty(nlst))
@@ -47,4 +58,4 @@ elif choice == "check":
     echo pretty(terms)
     echo "\n"
 
-
+echo "Done!"
