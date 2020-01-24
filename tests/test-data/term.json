@@ -1,0 +1,18 @@
+[{
+        "id": "term-0",
+        "value": "my"
+    },
+    {
+        "id": "term-1",
+        "value": "other"
+    },
+    {
+        "id": "term-2",
+        "value": "term"
+    },
+    {
+        "id": "term-3",
+        "value": "my other term",
+        "contain": ["term-0", "term-1", "term-2"]
+    }
+]
