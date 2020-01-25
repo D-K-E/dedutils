@@ -40,3 +40,7 @@ proc getOtherDir*(): string =
 proc getMainHtmlPath*(): string =
     ## get other directory assuming one is at the project dir
     result = joinPath(getDataDir(), "main.html")
+
+proc getSchemaPath*(): string =
+    ## get schema.json path
+    result = joinPath(getEntryListDir(), "schema.json")
