@@ -1,0 +1,34 @@
+[{
+        "id": "analysis-0",
+        "value": "preposition"
+    },
+    {
+        "id": "analysis-1",
+        "value": "noun"
+    },
+    {
+        "id": "analysis-2",
+        "value": "verb"
+    },
+    {
+        "id": "analysis-3",
+        "value": "my other term",
+        "contain": ["analysis-0", "words-1", "words-2"]
+    },
+    {
+        "id": "analysis-4",
+        "value": "participle"
+    },
+    {
+        "id": "analysis-6",
+        "value": "adjective"
+    },
+    {
+        "id": "analysis-5",
+        "value": "preverb"
+    },
+    {
+        "id": "analysis-7",
+        "value": "adverb"
+    }
+]

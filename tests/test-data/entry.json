@@ -1,0 +1,10 @@
+{
+    "id": "entry-1",
+    "info": {
+        "analysis": [{
+            "id": "entry-1+analysis-0",
+            "probability": "0.5",
+            "value": ["analysis-1"]
+        }]
+    }
+}

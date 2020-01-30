@@ -15,12 +15,12 @@ import termfn # getTermList
 ##     {"id": "entry-list-name-1",
 ##      "info": {
 ##          "field-name": [{
-##                              "field-name-id-1": "term-id-46",
+##                              "id": "entry-list-name-1+-field-name-0",
 ##                              "probability": int,
 ##                              "value": ["term-id-1", "term-id-2"],
 ##                         },
 ##                         {
-##                              "field-name-id-2": "",
+##                              "id": "entry-list-name-1+-field-name-0",
 ##                              "probability": "",
 ##                              "value": ["term-id-3", "term-id-5"],
 ##                         }
@@ -91,8 +91,10 @@ proc addValue2Field(fieldName: string,
                     entry: JsonNode): JsonNode =
     "add value 2 field"
     var fieldarr = getFieldByName(fieldName, entry)
+    let eids = entry["id"].getStr()
     let arrlen = len(fieldarr)
-    let valname = fieldName & "-" & $(arrlen)
+    let valname = eids & "+" & fieldName & "-" & $(arrlen)
+
     let valobj = %* {valname: fval, "probability": probability,
                      "value": values}
     fieldarr.add(valobj)

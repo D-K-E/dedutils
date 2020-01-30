@@ -7,17 +7,6 @@ import streams  # write file
 import os
 import utils
 
-## Term List Structure
-## --------------------
-##
-## A term list has the following structure
-##
-## .. code-block:: json
-##
-##     [{"id": "term-list-name-0", "value": string, 
-##       "contain/optional": ["term-id"]}
-##     ]
-##
 
 echo "Welcome to term interface!"
 let tname = readLineFromStdin(

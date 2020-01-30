@@ -1,0 +1,42 @@
+[{
+        "id": "words-0",
+        "value": "my"
+    },
+    {
+        "id": "words-1",
+        "value": "other"
+    },
+    {
+        "id": "words-2",
+        "value": "term"
+    },
+    {
+        "id": "words-3",
+        "value": "my other term",
+        "contain": ["words-0", "words-1", "words-2"]
+    },
+    {
+        "id": "words-4",
+        "value": "a"
+    },
+    {
+        "id": "words-6",
+        "value": "an"
+    },
+    {
+        "id": "words-5",
+        "value": "apple"
+    },
+    {
+        "id": "words-7",
+        "value": "red"
+    },
+    {
+        "id": "words-8",
+        "value": "blue"
+    },
+    {
+        "id": "words-9",
+        "value": "green"
+    }
+]
