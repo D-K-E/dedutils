@@ -3,6 +3,22 @@ from dtype.term import TermId, Term
 from maker.term import mkTerm
 import json
 
+## 
+## Replace declarations
+proc replace(t: Term, id: TermId): Term
+proc replace(t: Term, val: string): Term
+proc replace(t: Term, val: seq[TermId]): Term
+# --------- end Replacer ----
+## Contains declarations
+proc contains(t: Term, v: TermId): bool
+## Add/Remove declarations
+proc add(t: Term, v: TermId): Term
+proc add(t: Term, vs: seq[TermId]): Term
+proc remove(t: Term, v: TermId): Term
+proc remove(t: Term, vs: seq[TermId]): Term
+
+
+## Implementations
 proc replace(t: Term, id: TermId): Term =
     ## replace id of given term with id
     let c = t.contain

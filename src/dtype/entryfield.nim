@@ -2,11 +2,11 @@
 from dtype.term import TermId
 from dtype.entry import EntryId
 
-## {
-##   "id": "entry-list-name-1+-field-name-0",
+## {"fieldName": [{
+##   "id": "entryId+fieldName-0",
 ##   "probability": "",
 ##   "value": ["term-id-3", "term-id-5"],
-## }
+## }]}
 
 
 type
