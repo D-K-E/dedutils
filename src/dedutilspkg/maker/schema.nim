@@ -1,5 +1,5 @@
 ## schema primitive maker
-from dtype/schema import Schema, SchemaId, SchemaName
+import "../dtype/schema"
 import json
 
 proc mkSchemaId(v: string): SchemaId =
@@ -12,7 +12,7 @@ proc mkSchemaName(v: string): SchemaName =
 
 proc mkSchema(fs: JsonNode, id: SchemaId, name: SchemaName): Schema =
     ## make schema
-    return Schema(fields: fs, id: SchemaId, name: SchemaName)
+    return Schema(fields: fs, id: id, name: name)
 
 proc mkSchema(fs: JsonNode, id: string, name: string): Schema =
     ## make schema from id and name string

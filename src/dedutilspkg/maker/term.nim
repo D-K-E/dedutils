@@ -1,6 +1,6 @@
 ## term primitive maker
-from dtype/term import TermId, Term
-from dtype/separator import US
+import "../dtype/term"
+import "../dtype/separator"
 import json
 
 proc mkSafeIdStr(id: string, nb: int): string =
@@ -8,14 +8,16 @@ proc mkSafeIdStr(id: string, nb: int): string =
     ## a number corresponds to the position of the
     ## term in the list. id is usually the list name
     ## a combined name from parent lists
-    return id & US.d & $(nb)
+    const us = safeSeparators[Seps.US]
+    return id & us & $(nb)
 
 proc mkReadableIdStr(id: string, nb: int): string =
     ## make id string from a string and a number
     ## a number corresponds to the position of the
     ## term in the list. id is usually the list name
     ## a combined name from parent lists
-    return id & US.s & $(nb)
+    const us = readableSeparators[Seps.US]
+    return id & us & $(nb)
 
 
 proc str2id(idstr: string): TermId =

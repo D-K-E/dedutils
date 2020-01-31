@@ -42,22 +42,22 @@ type
         info*: seq[EntryField]
 
 ## Contains declarations
-proc contains(ev: EntryFieldValue, t: TermId): bool
-proc contains(ef: EntryField, t: TermId): bool
-proc contains(vs: seq[EntryFieldValue], v: EntryFieldValue): bool
-proc contains(ef: EntryField, ev: EntryFieldValue): bool
-proc contains(ef: EntryField, evs: seq[EntryFieldValue]): bool
+proc contains*(ev: EntryFieldValue, t: TermId): bool
+proc contains*(ef: EntryField, t: TermId): bool
+proc contains*(vs: seq[EntryFieldValue], v: EntryFieldValue): bool
+proc contains*(ef: EntryField, ev: EntryFieldValue): bool
+proc contains*(ef: EntryField, evs: seq[EntryFieldValue]): bool
 
 ## Equality declarations
 
-proc `==`(e1, e2: EntryFieldName): bool =
+proc `==`*(e1, e2: EntryFieldName): bool =
     return e1.value == e2.value
 
-proc `!=`(e1, e2: EntryFieldName): bool =
+proc `!=`*(e1, e2: EntryFieldName): bool =
     return not (e1 == e2)
 
 
-proc `==`(e1, e2: EntryFieldValueId): bool =
+proc `==`*(e1, e2: EntryFieldValueId): bool =
     result = true
     if e1.fieldName != e2.fieldName:
         result = false
@@ -66,39 +66,39 @@ proc `==`(e1, e2: EntryFieldValueId): bool =
     if e1.nb != e2.nb:
         result = false
 
-proc `!=`(e1, e2: EntryFieldValueId): bool =
+proc `!=`*(e1, e2: EntryFieldValueId): bool =
     return not (e1 == e2)
 
 
-proc `==`(e1, e2: EntryFieldValue): bool =
+proc `==`*(e1, e2: EntryFieldValue): bool =
     result = true
     if e1.id != e2.id:
         result = false
     if e1.value != e2.value:
         result = false
 
-proc `!=`(e1, e2: EntryFieldValue): bool =
+proc `!=`*(e1, e2: EntryFieldValue): bool =
     return not (e1 == e2)
 
 
-proc `==`(e1, e2: seq[EntryFieldValue]): bool =
+proc `==`*(e1, e2: seq[EntryFieldValue]): bool =
     result = true
     for e in e1:
         if contains(e2, e) == false:
             result = false
 
-proc `!=`(e1, e2: seq[EntryFieldValue]): bool =
+proc `!=`*(e1, e2: seq[EntryFieldValue]): bool =
     return not (e1 == e2)
 
 
-proc `==`(e1, e2: EntryField): bool =
+proc `==`*(e1, e2: EntryField): bool =
     result = true
     if e1.name != e2.name:
         result = false
     if e1.values != e2.values:
         result = false
 
-proc `!=`(e1, e2: EntryField): bool =
+proc `!=`*(e1, e2: EntryField): bool =
     return not (e1 == e2)
 
 

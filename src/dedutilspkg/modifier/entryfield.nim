@@ -1,13 +1,12 @@
 ## entry field modifier
 import "../dtype/entry"
-from "../dtype/entry" import contains
 import "../dtype/term"
 import "../maker/entryfield"
 
 ## Replacer declarations
 proc replace(ef: EntryField, n: EntryFieldName): EntryField
 proc replace(ef: EntryField, vs: seq[EntryFieldValue]): EntryField
-proc replace(ev: EntryFieldValue, id: EntryFieldValue): EntryFieldValue
+proc replace(ev: EntryFieldValue, id: EntryFieldValueId): EntryFieldValue
 proc replace(ev: EntryFieldValue, p: float): EntryFieldValue
 proc replace(ev: EntryFieldValue, vs: seq[TermId]): EntryFieldValue
 proc replace(ei: EntryFieldValueId, fn: EntryFieldName): EntryFieldValueId
@@ -46,8 +45,8 @@ proc replace(ei: EntryFieldValueId, e: EntryId): EntryFieldValueId =
 ## Add/Remove declarations
 proc add(ef: EntryField, v: EntryFieldValue): EntryField
 proc add(ef: EntryField, vs: seq[EntryFieldValue]): EntryField
-proc add(ev: EntryFieldValue, v: TermId): EntryFieldValue
-proc add(ev: EntryFieldValue, vs: seq[TermId]): EntryFieldValue
+proc add(ev: EntryFieldValue, t: TermId): EntryFieldValue
+proc add(ev: EntryFieldValue, ts: seq[TermId]): EntryFieldValue
 
 ## Add/Remove implementations
 
@@ -70,7 +69,7 @@ proc add(ef: EntryField, vs: seq[EntryFieldValue]): EntryField =
 proc add(ev: EntryFieldValue, t: TermId): EntryFieldValue =
     ## add term id to entry field value
     var vs = ev.value
-    if contains(EntryFieldValue, t) == false:
+    if contains(ev, t) == false:
         vs.add(t)
     return replace(ev, vs)
 

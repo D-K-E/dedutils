@@ -1,16 +1,17 @@
 ## separator primitive
-type 
-    Seps = enum
+
+type
+    Seps* = enum
         US, RS, GS
 
-const 
-    safeSeparators = [
-        US: "", # unit separator:U+001F
-        RS: "", # record separator: U+001E
-        GS: "", # group separator: U+001D
+const
+    safeSeparators* = [
+        Seps.US: "", # unit separator:U+001F
+        Seps.RS: "", # record separator: U+001E
+        Seps.GS: "", # group separator: U+001D
     ]
-    readableSeparators = [
-        US: "-",
-        RS: "_",
-        GS: ":",
+    readableSeparators* = [
+        Seps.US: "-",
+        Seps.RS: "_",
+        Seps.GS: ":",
     ]

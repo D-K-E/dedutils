@@ -1,3 +1,0 @@
-## entry field primitive
-
-

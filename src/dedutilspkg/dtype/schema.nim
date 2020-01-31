@@ -25,10 +25,10 @@ type
     SchemaId* = object
         value*: string
 
-proc `==`(s1, s2: SchemaId): bool =
+proc `==`*(s1, s2: SchemaId): bool =
     return s1.value == s2.value
 
-proc `!=`(s1, s2: SchemaId): bool =
+proc `!=`*(s1, s2: SchemaId): bool =
     return not(s1 == s2)
 
 type
@@ -36,10 +36,10 @@ type
         value*: string
 
 
-proc `==`(s1, s2: SchemaName): bool =
+proc `==`*(s1, s2: SchemaName): bool =
     return s1.value == s2.value
 
-proc `!=`(s1, s2: SchemaName): bool =
+proc `!=`*(s1, s2: SchemaName): bool =
     return not(s1 == s2)
 
 
@@ -49,7 +49,7 @@ type
         id*: SchemaId
         name*: SchemaName
 
-proc `==`(s1, s2: Schema): bool =
+proc `==`*(s1, s2: Schema): bool =
     result = true
     if s1.fields != s2.fields:
         result = false
