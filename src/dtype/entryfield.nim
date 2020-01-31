@@ -1,5 +1,4 @@
 ## entry field primitive
-import json
 from dtype.term import TermId
 from dtype.entry import EntryId
 
