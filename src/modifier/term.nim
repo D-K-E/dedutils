@@ -1,9 +1,9 @@
 ## term primitive maker
-from dtype.term import TermId, Term
+import dtype.term
 from maker.term import mkTerm
 import json
 
-## 
+##
 ## Replace declarations
 proc replace(t: Term, id: TermId): Term
 proc replace(t: Term, val: string): Term
@@ -40,15 +40,9 @@ proc contains(t: Term, v: TermId): bool =
     let cs = t.contain
     result = false
     for c in cs:
-        if c.value == v.value:
+        if c == v:
             result = true
 
-proc contains(ts: seq[TermId], v: TermId): bool =
-    ## check if term is contained in term sequence
-    result = false
-    for t in ts:
-        if t.value == v.value:
-            result = true
 
 proc add(t: Term, v: TermId): Term =
     ## add value to contain
@@ -71,7 +65,7 @@ proc remove(t: Term, v: TermId): Term =
     ## remove value from contained terms
     var cs: seq[TermId]
     for c in t.contain:
-        if c.value != v.value:
+        if c != v:
             cs.add(c)
     return replace(t, cs)
 
