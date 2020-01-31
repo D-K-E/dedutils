@@ -30,7 +30,7 @@ type
         value*: string
 
 type
-    Schema*= object 
-        fields*: JsonNode 
+    Schema* = object
+        fields*: JsonNode
         id*: SchemaId
         name*: SchemaName
