@@ -13,17 +13,37 @@ type
     EntryFieldName* = object
         value*: string
 
+type
+    EntryFieldValueId* = object
+        fieldName*: EntryFieldName
+        entryId*: EntryId
+        nb*: int
+type
+    EntryFieldValue* = object
+        id*: EntryFieldValueId
+        probability*: float
+        value*: seq[TermId]
+
+type
+    EntryField* = object
+        name*: EntryFieldName
+        values*: seq[EntryFieldValue]
+
+## Contains declarations
+proc contains(ev: EntryFieldValue, t: TermId): bool
+proc contains(ef: EntryField, t: TermId): bool
+proc contains(vs: seq[EntryFieldValue], v: EntryFieldValue): bool
+proc contains(ef: EntryField, ev: EntryFieldValue): bool
+proc contains(ef: EntryField, evs: seq[EntryFieldValue]): bool
+
+## Equality declarations
+
 proc `==`(e1, e2: EntryFieldName): bool =
     return e1.value == e2.value
 
 proc `!=`(e1, e2: EntryFieldName): bool =
     return not (e1 == e2)
 
-type
-    EntryFieldValueId* = object
-        fieldName*: EntryFieldName
-        entryId*: EntryId
-        nb*: int
 
 proc `==`(e1, e2: EntryFieldValueId): bool =
     result = true
@@ -37,11 +57,6 @@ proc `==`(e1, e2: EntryFieldValueId): bool =
 proc `!=`(e1, e2: EntryFieldValueId): bool =
     return not (e1 == e2)
 
-type
-    EntryFieldValue* = object
-        id*: EntryFieldValueId
-        probability*: float
-        value*: seq[TermId]
 
 proc `==`(e1, e2: EntryFieldValue): bool =
     result = true
@@ -53,11 +68,6 @@ proc `==`(e1, e2: EntryFieldValue): bool =
 proc `!=`(e1, e2: EntryFieldValue): bool =
     return not (e1 == e2)
 
-proc contains(vs: seq[EntryFieldValue], v: EntryFieldValue): bool =
-    result = false
-    for c in vs:
-        if c == v:
-            result = true
 
 proc `==`(e1, e2: seq[EntryFieldValue]): bool =
     result = true
@@ -68,10 +78,6 @@ proc `==`(e1, e2: seq[EntryFieldValue]): bool =
 proc `!=`(e1, e2: seq[EntryFieldValue]): bool =
     return not (e1 == e2)
 
-type
-    EntryField* = object
-        name*: EntryFieldName
-        values*: seq[EntryFieldValue]
 
 proc `==`(e1, e2: EntryField): bool =
     result = true
@@ -82,3 +88,32 @@ proc `==`(e1, e2: EntryField): bool =
 
 proc `!=`(e1, e2: EntryField): bool =
     return not (e1 == e2)
+
+
+## Contains implementations
+proc contains(ev: EntryFieldValue, t: TermId): bool =
+    ## entry field value contains term id or not ?
+    let vs: ev.value
+    return contains(vs, t)
+
+proc contains(vs: seq[EntryFieldValue], v: EntryFieldValue): bool =
+    result = false
+    for c in vs:
+        if c == v:
+            result = true
+
+proc contains(ef: EntryField, ev: EntryFieldValue): bool =
+    result = contains(ef.values, ev)
+
+proc contains(ef: EntryField, t: TermId): bool =
+    result = false
+    for v in ef.values:
+        if contains(v, t) == true:
+            result = true
+
+
+proc contains(ef: EntryField, evs: seq[EntryFieldValue]): bool =
+    result = true
+    for v in evs:
+        if contains(ef, v) == false:
+            result = false

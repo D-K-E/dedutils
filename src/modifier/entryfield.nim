@@ -1,7 +1,6 @@
 ## entry field modifier
 import dtype.entryfield
-from dtype.term import TermId
-from modifier.term import contains
+from dtype.term
 from dtype.entry import EntryId
 import maker.entryfield
 
@@ -43,24 +42,6 @@ proc replace(ei: EntryFieldValueId, e: EntryId): EntryFieldValueId =
     ## replace entry field value id's entryId with e
     return mkEntryFieldValueId(ei.fieldName, e, ei.nb)
 
-## Contains declarations
-proc contains(ef: EntryField, ev: EntryFieldValue): bool
-proc contains(evs: seq[EntryFieldValue], efv: EntryFieldValue): bool
-proc contains(ev: EntryFieldValue, t: TermId): bool
-
-
-## Contains implementations
-proc contains(ev: EntryFieldValue, t: TermId): bool =
-    ## entry field value contains term id or not ?
-    let vs: ev.value
-    return contains(vs, t)
-
-proc contains(evs: seq[EntryFieldValue], ev: EntryFieldValue): bool =
-    ## sequence of entry field values contains entry field value or not ?
-    var check = false
-    for e in evs:
-        var eid = e.id
-        var p = e.probability
 
 ## Add/Remove declarations
 proc add(ef: EntryField, v: EntryFieldValue): EntryField
