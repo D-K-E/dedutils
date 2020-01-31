@@ -1,5 +1,5 @@
 ## schema primitive maker
-from dtype.schema import Schema, SchemaId, SchemaName
+from dtype/schema import Schema, SchemaId, SchemaName
 import json
 
 proc mkSchemaId(v: string): SchemaId =

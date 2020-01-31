@@ -1,7 +1,6 @@
 ## maker for entry field primitive
-import dtype.entryfield
-from dtype.entry import EntryId
-from dtype.separator import US, RS, GS
+import "../dtype/entry"
+import "../dtype/term"
 
 proc mkEntryFieldName*(v: string): EntryFieldName =
     ## make entry field name from string
@@ -19,7 +18,7 @@ proc mkEntryFieldValue*(id: EntryFieldValueId,
     ## make entry field value
     return EntryFieldValue(id: id, probability: probability, value: value)
 
-proc makeEntryField*(name: EntryFieldName,
+proc mkEntryField*(name: EntryFieldName,
                      vs: seq[EntryFieldValue]): EntryField =
     ## make entry field
     return EntryField(name: name, values: vs)

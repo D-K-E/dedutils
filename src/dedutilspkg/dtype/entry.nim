@@ -1,16 +1,22 @@
-## entry field primitive
-import dtype.term
-import dtype.entry # EntryId and == op
+## entry primitif
+import "../dtype/term"
 
-## {"fieldName": [{
+## {id : "",
+## "info" : [{"fieldName": [{
 ##   "id": "entryId+fieldName-0",
 ##   "probability": "",
 ##   "value": ["term-id-3", "term-id-5"],
-## }]}
+##          }
+##      ]
+##   }
+## ]}
 
 
 type
     EntryFieldName* = object
+        value*: string
+type
+    EntryId* = object
         value*: string
 
 type
@@ -28,6 +34,12 @@ type
     EntryField* = object
         name*: EntryFieldName
         values*: seq[EntryFieldValue]
+
+
+type
+    Entry* = object
+        id*: EntryId
+        info*: seq[EntryField]
 
 ## Contains declarations
 proc contains(ev: EntryFieldValue, t: TermId): bool
@@ -93,7 +105,7 @@ proc `!=`(e1, e2: EntryField): bool =
 ## Contains implementations
 proc contains(ev: EntryFieldValue, t: TermId): bool =
     ## entry field value contains term id or not ?
-    let vs: ev.value
+    let vs = ev.value
     return contains(vs, t)
 
 proc contains(vs: seq[EntryFieldValue], v: EntryFieldValue): bool =

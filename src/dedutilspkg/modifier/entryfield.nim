@@ -1,8 +1,8 @@
 ## entry field modifier
-import dtype.entryfield
-from dtype.term
-from dtype.entry import EntryId
-import maker.entryfield
+import "../dtype/entry"
+from "../dtype/entry" import contains
+import "../dtype/term"
+import "../maker/entryfield"
 
 ## Replacer declarations
 proc replace(ef: EntryField, n: EntryFieldName): EntryField
@@ -22,7 +22,7 @@ proc replace(ef: EntryField, vs: seq[EntryFieldValue]): EntryField =
     ## replace entry field's values with given values
     return mkEntryField(ef.name, vs)
 
-proc replace(ev: EntryFieldValue, id: EntryFieldValue): EntryFieldValue =
+proc replace(ev: EntryFieldValue, id: EntryFieldValueId): EntryFieldValue =
     ## replace entry field value's id
     return mkEntryFieldValue(id, ev.probability, ev.value)
 
@@ -53,7 +53,7 @@ proc add(ev: EntryFieldValue, vs: seq[TermId]): EntryFieldValue
 
 proc add(ef: EntryField, v: EntryFieldValue): EntryField =
     ## add entry field value to entry field
-    var vs: ef.values
+    var vs = ef.values
     if contains(ef, v) == false:
         vs.add(v)
     return replace(ef, vs)

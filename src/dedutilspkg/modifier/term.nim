@@ -1,6 +1,6 @@
 ## term primitive maker
-import dtype.term
-from maker.term import mkTerm
+import "../../dtype/term"
+from maker/term import mkTerm
 import json
 
 ##

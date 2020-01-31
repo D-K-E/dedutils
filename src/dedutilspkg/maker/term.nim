@@ -1,6 +1,6 @@
 ## term primitive maker
-from dtype.term import TermId, Term
-from dtype.separator import US
+from dtype/term import TermId, Term
+from dtype/separator import US
 import json
 
 proc mkSafeIdStr(id: string, nb: int): string =
