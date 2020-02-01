@@ -35,7 +35,6 @@ type
         name*: EntryFieldName
         values*: seq[EntryFieldValue]
 
-
 type
     Entry* = object
         id*: EntryId

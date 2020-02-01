@@ -3,7 +3,7 @@ import "../dtype/term"
 import "../dtype/separator"
 import json
 
-proc mkSafeIdStr(id: string, nb: int): string =
+proc mkSafeIdStr*(id: string, nb: int): string =
     ## make id string from a string and a number
     ## a number corresponds to the position of the
     ## term in the list. id is usually the list name
@@ -20,7 +20,7 @@ proc mkReadableIdStr(id: string, nb: int): string =
     return id & us & $(nb)
 
 
-proc str2id(idstr: string): TermId =
+proc str2id*(idstr: string): TermId =
     ## produce an id from string
     return TermId(value: idstr)
 

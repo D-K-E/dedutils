@@ -1,5 +1,5 @@
 ## schema primitive
-from json import JsonNode
+from tables import Table
 
 ## Entry Schema Structure
 ## -----------------------
@@ -35,7 +35,6 @@ type
     SchemaName* = object
         value*: string
 
-
 proc `==`*(s1, s2: SchemaName): bool =
     return s1.value == s2.value
 
@@ -45,7 +44,7 @@ proc `!=`*(s1, s2: SchemaName): bool =
 
 type
     Schema* = object
-        fields*: JsonNode
+        fields*: Table
         id*: SchemaId
         name*: SchemaName
 

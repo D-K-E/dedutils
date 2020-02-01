@@ -1,5 +1,4 @@
 ## term primitive
-import json
 
 ## Term List Structure
 ## --------------------
