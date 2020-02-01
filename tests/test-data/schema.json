@@ -1,0 +1,8 @@
+{
+    "id": "schema-1",
+    "name": "my schema",
+    "fields": {
+        "fieldName": "fieldTerm",
+        "fieldName2": "fieldTerm2"
+    }
+}
