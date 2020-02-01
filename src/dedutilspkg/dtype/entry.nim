@@ -2,14 +2,14 @@
 import "../dtype/term"
 
 ## {id : "",
-## "info" : [{"fieldName": [{
+## "info" : {"fieldName": [{
 ##   "id": "entryId+fieldName-0",
 ##   "probability": "",
 ##   "value": ["term-id-3", "term-id-5"],
 ##          }
 ##      ]
 ##   }
-## ]}
+## }
 
 
 type

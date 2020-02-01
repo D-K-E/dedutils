@@ -80,9 +80,42 @@ proc getTerm(t: JsonNode): Term =
         cs.add(getTermId(c.getStr()))
     return mkTerm(tid, v, cs)
 
+proc getEntryFieldName(e: JsonNode): EntryFieldName =
+    ## get entry field name
+    return mkEntryFieldName(e.getStr())
+
+proc getEntryId(e: JsonNode): EntryId =
+    ## get entry id
+    return mkEntryId(e.getStr())
+
+proc getEntryFieldValueId(e: JsonNode): EntryFieldValueId =
+    ## entry field value id from json
+    const us = safeSeparators[Seps.US]
+    var s = e.getStr()
+    s = s.split(us)
+    return mkEntryFieldValueId(s[0], s[1], s[2])
 
 proc getEntryFieldValue(e: JsonNode): EntryFieldValue =
-    ##
-    let id = e["id"].getStr()
-    let prob = e["probability"]
+    ## get entry field value
+    let id = getEntryFieldValueId(e["id"])
+    let prob = e["probability"].getFloat()
+    var ts: seq[TermId]
+    for t in e["value"].items():
+        ts.add(getTermId(t))
+    return mkEntryFieldValue(id, prob, ts)
+
+proc getEntry(e: JsonNode): Entry =
+    ## get entry from json
+    let id = getEntryId(e["id"])
+    let info = e["info"]
+    var es: seq[EntryField]
+    for field, vals in info.pairs():
+        let name = getEntryFieldName(field)
+        var vs: seq[EntryFieldValue]
+        for v in vals:
+            vs.add(getEntryFieldValue(v))
+        #
+        let ef = mkEntryField(name, vs)
+        es.add(ef)
+    return mkEntry(id, es)
 

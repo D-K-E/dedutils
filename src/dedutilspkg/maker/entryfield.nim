@@ -6,6 +6,10 @@ proc mkEntryFieldName*(v: string): EntryFieldName =
     ## make entry field name from string
     return EntryFieldName(value: v)
 
+proc mkEntryId*(v: string): EntryId =
+    ## make entry id
+    return EntryId(value: v)
+
 proc mkEntryFieldValueId*(name: EntryFieldName,
                          eid: EntryId,
                          nb: int): EntryFieldValueId =
@@ -22,3 +26,7 @@ proc mkEntryField*(name: EntryFieldName,
                      vs: seq[EntryFieldValue]): EntryField =
     ## make entry field
     return EntryField(name: name, values: vs)
+
+proc mkEntry*(id: EntryId, info: seq[EntryField]): Entry =
+    ## make entry
+    return Entry(id: id, info: info)
