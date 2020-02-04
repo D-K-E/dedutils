@@ -7,7 +7,7 @@ license       = "MIT"
 srcDir        = "src"
 binDir        = "bin"
 installExt    = @["nim"]
-bin           = @["dedutils"]
+# bin           = @["dedutils"]
 
 
 

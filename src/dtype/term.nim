@@ -64,6 +64,12 @@ proc contains*(t1: seq[Term], t2: Term): bool =
         if t == t2:
             result = true
 
+proc contains*(t1: seq[Term], t2: TermId): bool =
+    result = false
+    for t in t1:
+        if t.id == t2:
+            result = true
+
 proc `==`*(t1, t2: seq[Term]): bool =
     result = true
     for t in t1:

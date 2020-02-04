@@ -1,12 +1,15 @@
 ## transform dtype to/from json
-import "../dtype/entry"
-import "../dtype/schema"
-import "../dtype/separator"
-import "../dtype/term"
-import "../maker/term"
-import "../maker/schema"
-import "../maker/entryfield"
+import dtype/entry
+import dtype/schema
+import dtype/separator
+import dtype/term
+import maker/term as tmaker
+import maker/schema as smaker
+import maker/entryfield as emaker
+import transformer/strio
 import json
+import tables
+from strutils import split, parseInt
 
 proc `%`*(t: TermId): JsonNode =
     return % t.value
@@ -41,7 +44,8 @@ proc `%`*(e: EntryId): JsonNode =
 
 proc `%`*(e: EntryFieldValueId): JsonNode =
     const us = safeSeparators[Seps.US]
-    var s = e.fieldName & us & e.entryId & us & $(e.nb)
+    let fname = $(e.fieldName)
+    var s = fname & us & $(e.entryId) & us & $(e.nb)
     result = % s
 
 proc `%`*(e: EntryFieldValue): JsonNode =
@@ -66,56 +70,76 @@ proc `%`*(e: Entry): JsonNode =
         result["info"].add( % v)
 
 ## parse json output
-proc getTermId(t: JsonNode): TermId =
+proc getTermId*(t: JsonNode): TermId =
     ## get term id
     let tstr = t.getStr()
-    return str2id(tstr)
+    return tmaker.str2id(tstr)
 
-proc getTerm(t: JsonNode): Term =
+proc getTerm*(t: JsonNode): Term =
     ## get term from json
     let tid = getTermId(t["id"])
     let v = t["value"].getStr()
     var cs: seq[TermId]
     for c in t["contain"]:
-        cs.add(getTermId(c.getStr()))
-    return mkTerm(tid, v, cs)
+        cs.add(getTermId(c))
+    return tmaker.mkTerm(tid, v, cs)
 
-proc getEntryFieldName(e: JsonNode): EntryFieldName =
+proc getTermList*(tlst: JsonNode): seq[Term] =
+    ## get term list from json node
+    var ts: seq[Term]
+    for t in tlst.items():
+        ts.add(getTerm(t))
+    return ts
+
+
+proc getEntryFieldName*(e: JsonNode): EntryFieldName =
     ## get entry field name
-    return mkEntryFieldName(e.getStr())
+    return emaker.mkEntryFieldName(e.getStr())
 
-proc getEntryId(e: JsonNode): EntryId =
+proc getEntryId*(e: JsonNode): EntryId =
     ## get entry id
-    return mkEntryId(e.getStr())
+    return emaker.mkEntryId(e.getStr())
 
-proc getEntryFieldValueId(e: JsonNode): EntryFieldValueId =
+proc getEntryFieldValueId*(e: JsonNode): EntryFieldValueId =
     ## entry field value id from json
     const us = safeSeparators[Seps.US]
-    var s = e.getStr()
-    s = s.split(us)
-    return mkEntryFieldValueId(s[0], s[1], s[2])
+    let si = e.getStr()
+    let s = si.split(us)
+    let name = emaker.mkEntryFieldName(s[0])
+    let id = emaker.mkEntryId(s[1])
+    return emaker.mkEntryFieldValueId(name, id,
+        parseInt(s[2])
+    )
 
-proc getEntryFieldValue(e: JsonNode): EntryFieldValue =
+proc getEntryFieldValue*(e: JsonNode): EntryFieldValue =
     ## get entry field value
     let id = getEntryFieldValueId(e["id"])
     let prob = e["probability"].getFloat()
     var ts: seq[TermId]
     for t in e["value"].items():
         ts.add(getTermId(t))
-    return mkEntryFieldValue(id, prob, ts)
+    return emaker.mkEntryFieldValue(id, prob, ts)
 
-proc getEntry(e: JsonNode): Entry =
+proc getEntry*(e: JsonNode): Entry =
     ## get entry from json
     let id = getEntryId(e["id"])
     let info = e["info"]
     var es: seq[EntryField]
     for field, vals in info.pairs():
-        let name = getEntryFieldName(field)
+        let name = mkEntryFieldName(field)
         var vs: seq[EntryFieldValue]
         for v in vals:
             vs.add(getEntryFieldValue(v))
         #
-        let ef = mkEntryField(name, vs)
+        let ef = emaker.mkEntryField(name, vs)
         es.add(ef)
-    return mkEntry(id, es)
+    return emaker.mkEntry(id, es)
 
+proc getSchema*(s: JsonNode): Schema =
+    ## get schema from json
+    var fields = initTable[string, string]()
+    for k, val in s["fields"].pairs:
+        fields[k] = val.getStr()
+    let id = s["id"].getStr()
+    let name = s["name"].getStr()
+    return smaker.mkSchema(fields, id, name)

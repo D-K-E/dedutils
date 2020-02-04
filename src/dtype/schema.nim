@@ -1,5 +1,5 @@
 ## schema primitive
-from tables import Table
+import tables  # Table
 
 ## Entry Schema Structure
 ## -----------------------
@@ -44,7 +44,7 @@ proc `!=`*(s1, s2: SchemaName): bool =
 
 type
     Schema* = object
-        fields*: Table
+        fields*: Table[string, string]
         id*: SchemaId
         name*: SchemaName
 

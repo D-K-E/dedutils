@@ -11,6 +11,7 @@ import streams  # newFileStream
 ##     - term-list/ # contains .json files
 ##     - entry-list/ # contains .json files
 ##     - shape/ # contains .svg files
+##     - info/ # contains .json files
 ##     - image/ # contains .png files
 ##     - docpart/ # contains .html files
 ##     - other/ # contains .html files
@@ -45,6 +46,8 @@ proc makeProjectStructure(name: string, path: string): void =
     var subdir = joinPath(datadir, "term-list")
     discard existsOrCreateDir(subdir)
     subdir = joinPath(datadir, "shape")
+    discard existsOrCreateDir(subdir)
+    subdir = joinPath(datadir, "info")
     discard existsOrCreateDir(subdir)
     subdir = joinPath(datadir, "entry-list")
     discard existsOrCreateDir(subdir)

@@ -1,5 +1,5 @@
 ## entry primitif
-import "../dtype/term"
+import dtype/term
 
 ## {id : "",
 ## "info" : {"fieldName": [{
@@ -15,6 +15,7 @@ import "../dtype/term"
 type
     EntryFieldName* = object
         value*: string
+
 type
     EntryId* = object
         value*: string

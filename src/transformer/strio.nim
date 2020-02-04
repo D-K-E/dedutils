@@ -1,10 +1,11 @@
 ## transform dtype to/from tostring
 import strutils
-import "../dtype/entry"
-import "../dtype/schema"
-import "../dtype/separator"
-import "../dtype/term"
-import "../maker/term"
+import dtype/entry
+import dtype/schema
+import dtype/separator
+import dtype/term
+import maker/term as tmaker
+import tables
 
 ## to string operations
 
@@ -22,7 +23,7 @@ proc `$`*(t: Term): string =
     result = result & "Value(" & v & ")" & rs
     result = result & "Contain("
     for c in cs:
-        result = result & c & us
+        result = result & $(c) & us
     result = result & ")" & ")"
 
 proc toString*(t: Term): string =
@@ -51,7 +52,7 @@ proc `$`*(s: Schema): string =
     let sid = $(s.id)
     let sname = $(s.name)
     result = "Schema(" & "Fields("
-    for k, v in s.fields.pairs():
+    for k, v in s.fields.pairs:
         result = result & k & gs & v & us
     result = result & ")" & rs
     result = result & "Id(" & sid & ")" & rs

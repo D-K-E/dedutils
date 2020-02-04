@@ -1,7 +1,7 @@
 ## entry field modifier
-import "../dtype/entry"
-import "../dtype/term"
-import "../maker/entryfield"
+import dtype/entry
+import dtype/term
+import maker/entryfield
 
 ## Replacer declarations
 proc replace(ef: EntryField, n: EntryFieldName): EntryField
