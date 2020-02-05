@@ -16,12 +16,12 @@ from system import newException, FieldError, ValueError
 proc readSchema*(): Schema =
     ## read schema
     let schemaPath = getSchemaPath()
-    let jschema = parseJson(schemaPath)
+    let jschema = parseFile(schemaPath)
     return jio.getSchema(jschema)
 
 proc readTermList*(path: string): seq[Term] =
     ## read term list from path
-    let jterms = parseJson(path)
+    let jterms = parseFile(path)
     return jio.getTermList(jterms)
 
 proc getTermListTable*(): Table[string, seq[Term]] =
@@ -35,7 +35,7 @@ proc getTermListTable*(): Table[string, seq[Term]] =
 
 proc readEntryList(path: string): seq[Entry] =
     ## read entry list from path
-    let jentries = parseJson(path)
+    let jentries = parseFile(path)
     for jentry in jentries.items():
         result.add(jio.getEntry(jentry))
 
@@ -72,7 +72,6 @@ proc validateEntry(e: Entry,
                    s: Schema,
                    termLstTbl: Table[string, seq[Term]]): bool =
     ## validate entry using schema
-    let eid = e.id
     let eids = $(e.id)
     echo "----------"
     echo "Validating entry: " & eids
@@ -93,7 +92,7 @@ proc validateEntryLstTerms(
 ): bool =
     ## validate entry list elements
     for e in elst:
-        validateEntry(e, s, termLstTbl)
+        discard validateEntry(e, s, termLstTbl)
 
 
 
