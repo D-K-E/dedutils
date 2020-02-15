@@ -80,8 +80,11 @@ proc getTerm*(t: JsonNode): Term =
     let tid = getTermId(t["id"])
     let v = t["value"].getStr()
     var cs: seq[TermId]
-    for c in t["contain"]:
-        cs.add(getTermId(c))
+    if t.hasKey("contain") == true:
+        for c in t["contain"]:
+            cs.add(getTermId(c))
+    else:
+        discard
     return tmaker.mkTerm(tid, v, cs)
 
 proc getTermList*(tlst: JsonNode): seq[Term] =
